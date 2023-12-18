@@ -1,0 +1,24 @@
+.nav {
+  width: 100vw;
+  height: 80px;
+  background: #fff;
+  border-bottom: 1px solid #dddddd;
+  padding: 0 200px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.nav_list {
+  display: flex;
+  align-items: flex-end;
+  align-self: center;
+}
+.nav_list > a {
+  color: #596c73;
+  font-size: 20px;
+  font-weight: 600;
+  width: auto;
+}
+.nav_list > * {
+  margin: 0 50px;
+}
