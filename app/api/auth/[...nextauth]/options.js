@@ -1,6 +1,85 @@
 import NaverProvider from "next-auth/providers/naver";
 import GoogleProvider from "next-auth/providers/Google";
 import kakaoProvider from "next-auth/providers/kakao";
+import axios from "axios";
+
+// 회원 정보 불러오기
+const getUserData = async (id) => {
+  try {
+    const res = await axios.get(`http://localhost:8080/api/v1/members/${id}`);
+    let LoginUserData = res.data;
+    console.log(LoginUserData, "로그인된 회원 정보", res);
+    return true;
+  } catch (e) {
+    console.error("회원정보 API 호출 중 오류 발생:", e, e?.response?.status);
+    if (e?.response?.status === 400) {
+      console.log("messages: '이름 또는 비밀번호가 틀립니다.");
+    } else {
+      return false;
+    }
+  }
+};
+
+// 회원가입
+const getSignUp = async (user) => {
+  let inputData = {
+    id: user?.user?.id,
+    name: user?.user?.name,
+    password: "1234",
+  };
+
+  try {
+    const res = await axios.post(
+      "http://localhost:8080/api/v1/members/sign-up",
+      inputData
+    );
+    let LoginUserData = res.data;
+    console.log("회원가입 완료");
+    getSignIn(user, account, profile);
+  } catch (e) {
+    console.error("API 호출 중 오류 발생:", e, e?.response?.status);
+    if (e?.response?.status === 400) {
+      return false;
+    } else {
+      return false;
+    }
+  }
+};
+
+// 로그인
+const getSignIn = async (user) => {
+  const inputDataSignIn = {
+    id: user?.user?.id,
+    name: user?.user?.name,
+    password: "1234",
+  };
+  console.log(user, inputDataSignIn, "입력데이터");
+  await axios
+    .post("http://localhost:8080/api/v1/members/sign-in", inputDataSignIn)
+    .then((res) => {
+      let resultData = res.data;
+
+      return true;
+      // getUserData(user?.id);
+    })
+    .catch((e) => {
+      console.error("API 호출 중 오류 발생:", e, e?.response?.status);
+      if (e?.response?.status === 400) {
+        getSignUp(user);
+      } else {
+        return false;
+      }
+    });
+};
+// async signIn {
+//   // 로그인 프로세스 완료 전에 추가적인 로직 수행
+//   const inputData = {
+//     userId: ,
+//   };
+//
+
+//
+// },
 
 export const options = {
   images: {
@@ -23,8 +102,7 @@ export const options = {
         return {
           ...profile,
           role: userRole,
-          // id: profile.sub, //왜 안돼....
-          id: profile?.response?.id, //왜 안돼....
+          id: profile?.response?.id,
         };
       },
       clientId: process.env.NAVER_CLIENT_ID,
@@ -42,7 +120,8 @@ export const options = {
         return {
           ...profile,
           role: userRole,
-          id: profile.sub,
+          id: profile?.sub,
+          name: profile?.name,
         };
       },
       clientId: process.env.GOOGLE_CLIENT_ID,
@@ -52,11 +131,14 @@ export const options = {
       profile(profile) {
         console.log("kakao kakaokakaokakao", profile);
         let userRole = "kakao user";
+        let inputData = {
+          userId: profile?.id,
+        };
 
         return {
           ...profile,
           role: userRole,
-          // id: profile.sub,
+          id: profile?.id,
         };
       },
       clientId: process.env.KAKAO_CLIENT_ID,
@@ -69,7 +151,10 @@ export const options = {
   // },
 
   callbacks: {
-    alert("테스트");
+    async signIn(user, account, profile) {
+      console.log(user);
+      await getSignIn(user);
+    },
 
     async jwt({ token, user }) {
       if (user) token.role = user.role;

@@ -1,3 +1,4 @@
+import AuthProvider from "./components/AuthProvider";
 import Nav from "./components/Nav";
 import "/public/css/style.css";
 
@@ -9,10 +10,12 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      {/* <AuthProvider> */}
       <body>
         <Nav />
         <div>{children}</div>
       </body>
+      {/* </AuthProvider> */}
     </html>
   );
 }

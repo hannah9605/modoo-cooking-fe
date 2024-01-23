@@ -15,7 +15,9 @@ const Nav = async () => {
     <div className={styles.nav}>
       <Image src="/logo.png" alt="로고" width={250} height={70} priority />
       <div className={styles.nav_list}>
-        <Link href="/Recipe">요리/조리</Link>
+        <Link href="/Recipe">
+          요리<span>/조리</span>
+        </Link>
         <Link href="/Cooking">요리등록</Link>
         {session ? (
           <>
