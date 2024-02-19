@@ -1,0 +1,9 @@
+/* 화면별 메인 텍스트 */
+.main_txt  {
+    font-size: 30px;
+    font-weight: bold;
+}
+.sub_txt {
+    font-size: 20px;
+    font-weight: bold;
+}
