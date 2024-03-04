@@ -18,3 +18,18 @@ export interface CookingPost {
   ingredientList: Ingredient[];
   foodImgList: FoodImage[];
 }
+
+type RecipeColumn = {
+  title?: string;
+  id: string;
+  value: null | any;
+  type: string;
+  imgFile?: null | any;
+};
+
+export interface ColumnsRecipe {
+  // [key: string]: RecipeColumn[] | RecipeColumn[][];
+  Profile: RecipeColumn[];
+  ingredientList: RecipeColumn[][];
+  foodImgList: RecipeColumn[];
+}

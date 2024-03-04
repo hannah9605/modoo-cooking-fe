@@ -55,23 +55,24 @@ const getSignIn = async (user) => {
     name: user?.user?.name,
     password: "1234",
   };
-  console.log(user, inputDataSignIn, "입력데이터");
-  await axios
-    .post("http://localhost:8080/api/v1/members/sign-in", inputDataSignIn)
-    .then((res) => {
-      let resultData = res.data;
+  console.log("getSignIngetSignIn", inputDataSignIn);
 
-      return true;
-      // getUserData(user?.id);
-    })
-    .catch((e) => {
-      console.error("API 호출 중 오류 발생:", e, e?.response?.status);
-      if (e?.response?.status === 400) {
-        getSignUp(user);
-      } else {
-        return false;
-      }
-    });
+  // await axios
+  //   .post("http://localhost:8080/api/v1/members/sign-in", inputDataSignIn)
+  //   .then((res) => {
+  //     let resultData = res.data;
+
+  //     return true;
+  //     // getUserData(user?.id);
+  //   })
+  //   .catch((e) => {
+  //     console.error("API 호출 중 오류 발생:", e, e?.response?.status);
+  //     if (e?.respofnse?.status === 400) {
+  //       getSignUp(user);
+  //     } else {
+  //       return false;
+  //     }
+  //   });
 };
 // async signIn {
 //   // 로그인 프로세스 완료 전에 추가적인 로직 수행
@@ -90,11 +91,6 @@ export const options: AuthOptions = {
   providers: [
     NaverProvider({
       profile(profile) {
-        console.log(
-          "naver navernavernavernavernaver",
-          profile,
-          profile.response.id
-        );
         let userRole = "Naver user";
 
         // 임시 권한 테스트
@@ -154,11 +150,12 @@ export const options: AuthOptions = {
 
   callbacks: {
     async signIn(user, account, profile) {
-      console.log(user);
       await getSignIn(user);
+      return true;
     },
 
     async jwt({ token, user }) {
+      console.log(user, "jwtjwtjwt");
       if (user) token.role = user.role;
       return token;
     },

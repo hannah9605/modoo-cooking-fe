@@ -1,8 +1,63 @@
 .nav {
-    background: #ddd;
-    display: flex;
-    padding: 10px 0;
+  background: #fff;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.051);
+}
+.nav_wrap {
+  padding: 30.2px 0;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #000;
+}
+.nav_menu {
+  display: flex;
+  align-items: center;
+  font-size: 18px;
+  font-weight: 500;
+}
+.nav_menu > li ~ li {
+  margin-left: 30px;
+}
+.nav_side {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+}
+.nav_side li:nth-child(1) {
+  margin-right: 30px;
+}
+.nav_side li:last-child {
+  margin-left: 20px;
 }
 .button1 {
-    background: aqua;
+  background: aqua;
 }
+.sch_bar {
+  position: relative;
+}
+.sch_bar > input[type="text"] {
+  border-radius: 20px;
+  border: 2px solid #ff5863;
+  padding: 11px 41px 11px 11px;
+  font-size: 12px;
+  min-width: 280px;
+}
+.sch_bar > button {
+  position: absolute;
+  top: 50%;
+  right: 6px;
+  transform: translateY(-50%);
+  width: auto;
+  padding: 5px;
+}
+.login_font {
+  font-size: 14px;
+  color: var(--dark03);
+}
+
+/* .sch_bar > input[type="text"] {
+  padding: 11px;
+  border: 2px solid #ff5863;
+} */

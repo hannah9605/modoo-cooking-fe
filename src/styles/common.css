@@ -1,9 +1,25 @@
+main {
+  width: 1200px;
+  margin: 0 auto;
+}
+
 /* 화면별 메인 텍스트 */
-.main_txt  {
-    font-size: 30px;
-    font-weight: bold;
+
+.main_txt {
+  font-size: 30px;
+  font-weight: bold;
 }
 .sub_txt {
-    font-size: 20px;
-    font-weight: bold;
+  font-size: 20px;
+  font-weight: bold;
+}
+/* flex */
+.flex_between {
+  display: flex;
+  justify-content: space-between;
+  align-self: center;
+}
+.flex {
+  display: flex;
+  align-items: center;
 }

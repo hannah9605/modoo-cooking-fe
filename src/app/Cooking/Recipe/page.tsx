@@ -1,11 +1,13 @@
 "use client";
 
-import { useState } from "react";
-import { CookingPost } from "@/types";
+import { useEffect, useState } from "react";
+import { CookingPost, ColumnsRecipe } from "@/types";
+
+import style from "./recipe.module.css";
 
 export default function Recipe() {
   // Columns
-  const columnsRecipe = {
+  const columnsRecipe: ColumnsRecipe = {
     Profile: [
       {
         title: "대표이미지",
@@ -39,6 +41,18 @@ export default function Recipe() {
           type: "text",
         },
       ],
+      [
+        {
+          id: "name",
+          value: null,
+          type: "text",
+        },
+        {
+          id: "measurement",
+          value: null,
+          type: "text",
+        },
+      ],
     ],
     foodImgList: [
       {
@@ -51,134 +65,142 @@ export default function Recipe() {
     ],
   };
 
-  // const defaultInsertData: CookingPost = {
-  //   title: "",
-  //   author: "",
-  //   detail: "",
-  //   score: null,
-  //   duration: "",
-  //   ingredientList: [
-  //     {
-  //       name: "",
-  //       measurement: "",
-  //     },
-  //     {
-  //       name: "",
-  //       measurement: "",
-  //     },
-  //   ],
-  //   foodImgList: [
-  //     {
-  //       content: "",
-  //     },
-  //   ],
-  // };
-
-  const [insertData, setInsertData] = useState(columnsRecipe);
-
-  console.log(insertData);
-
-  const renderFormItem = (_, column: any) => {
+  const [insertData, setInsertData] = useState<ColumnsRecipe>(columnsRecipe);
+  const renderFormItem = (formKey: string, column: any) => {
     return (
       <table className="row_2_table">
-        <thead></thead>
         <tbody>
-          {column.map((item: any, index: number) => (
-            <tr key={index}>
-              <th>{item?.title}</th>
-              <td>
-                <input
-                  // onChange={(e) => handleInputChange(e, formKey, item, column)}
-                  type={item?.type}
-                  value={item?.value}
-                />
+          {column.map((list: any, index: number) => {
+            return (
+              <tr key={index}>
+                {formKey === "ingredientList" ? (
+                  <>
+                    {list?.map((item: any, i: number) => (
+                      <td key={i}>
+                        <input
+                          onChange={(e) => console.log(e)}
+                          type={item?.type}
+                          value={item?.value === null ? "" : item?.value}
+                        />
+                      </td>
+                    ))}
+
+                    {index !== 0 ? (
+                      <td>
+                        <button
+                          onClick={(e) => {
+                            handleDelButtonClick(e, formKey, index);
+                          }}
+                        >
+                          빼기
+                        </button>
+                      </td>
+                    ) : null}
+                  </>
+                ) : (
+                  <>
+                    <th>
+                      {formKey === "foodImgList"
+                        ? `${index + 1} 단계`
+                        : list?.title}
+                    </th>
+                    <td>
+                      <input
+                        onChange={(e) => console.log(e)}
+                        type={list?.type}
+                        value={list?.value === null ? "" : list?.value}
+                      />
+                    </td>
+                    {index !== 0 && formKey === "foodImgList" ? (
+                      <td>
+                        <button
+                          onClick={(e) => {
+                            handleDelButtonClick(e, formKey, index);
+                          }}
+                        >
+                          빼기
+                        </button>
+                      </td>
+                    ) : null}
+                  </>
+                )}
+              </tr>
+            );
+          })}
+          {/* 추가하기 버튼 */}
+          {(formKey === "ingredientList" || formKey === "foodImgList") && (
+            <tr>
+              <td colSpan={2}>
+                <button onClick={(e) => handleAddButtonClick(e, formKey)}>
+                  추가하기
+                </button>
               </td>
             </tr>
-          ))}
+          )}
         </tbody>
       </table>
     );
   };
 
+  const handleAddButtonClick = (e, formKey) => {
+    e.preventDefault();
+    const newItem = [
+      {
+        id: "name",
+        value: null,
+        type: "text",
+      },
+      {
+        id: "measurement",
+        value: null,
+        type: "text",
+      },
+    ];
+    const newItem2 = {
+      id: "newItem",
+      type: "text",
+      value: "",
+    };
+
+    setInsertData((prevColumn: ColumnsRecipe) => {
+      const updatedColumn: ColumnsRecipe = { ...prevColumn };
+      updatedColumn[formKey] = [...prevColumn[formKey], newItem];
+      return updatedColumn;
+    });
+  };
+
+  const handleDelButtonClick = (
+    e: React.MouseEvent,
+    formKey: keyof ColumnsRecipe,
+    index: number
+  ) => {
+    e.preventDefault();
+
+    setInsertData((prevColumn: ColumnsRecipe) => {
+      const updatedColumn: ColumnsRecipe = { ...prevColumn };
+      const newArray = [...prevColumn[formKey]]; // 타입 단언을 통해 배열의 타입을 RecipeColumn[]로 지정합니다.
+      newArray.splice(index, 1);
+      updatedColumn[formKey] = newArray;
+      return updatedColumn;
+    });
+  };
+
   return (
-    <main>
+    <main className={style.main}>
       <h2 className="main_txt">요리등록</h2>
       <form>
-        {Object.entries(columnsRecipe).map(([formKey, column]) => (
+        {Object.entries(insertData).map(([formKey, column]) => (
           <div className="insert_form" key={formKey}>
-            <div className="tb_title">
+            <h3 className="tb_title">
               {formKey === "ingredientList"
                 ? "재료"
-                : formKey === "ㄹㄹ"
+                : formKey === "foodImgList"
                 ? "요리단계"
                 : null}
-            </div>
+            </h3>
             {renderFormItem(formKey, column)}
           </div>
         ))}
-        ;
-        {/* <ul>
-          <li>
-            <p>대표이미지</p>
-            <input type="file" />
-          </li>
-          <li>
-            <p>레시피제목</p>
-            <input type="text" />
-          </li>
-          <li>
-            <p>요리소개</p>
-            <textarea></textarea>
-          </li>
-        </ul>
-        <h3 className="sub_txt">재료</h3>
-        <table>
-          <thead>
-            <tr>
-              <th>종류</th>
-              <th>계량</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>
-                <input type="text" />
-              </td>
-              <td>
-                <input type="text" />
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <input type="text" />
-              </td>
-              <td>
-                <input type="text" />
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <input type="text" />
-              </td>
-              <td>
-                <input type="text" />
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <input type="text" />
-              </td>
-              <td>
-                <input type="text" />
-              </td>
-            </tr>
-            <tr>
-              <td colSpan={2}>
-                <button onClick={() => {}}>재료 추가하기</button>
-              </td>
-            </tr>
-          </tbody>
-        </table> */}
       </form>
     </main>
   );
