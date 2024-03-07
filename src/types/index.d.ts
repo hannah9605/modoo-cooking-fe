@@ -30,6 +30,8 @@ type RecipeColumn = {
 export interface ColumnsRecipe {
   // [key: string]: RecipeColumn[] | RecipeColumn[][];
   Profile: RecipeColumn[];
+  cookingUtensils: RecipeColumn[][];
+  seasonings: RecipeColumn[][];
   ingredientList: RecipeColumn[][];
   foodImgList: RecipeColumn[];
 }
