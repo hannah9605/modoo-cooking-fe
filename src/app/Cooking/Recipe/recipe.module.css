@@ -1,4 +1,36 @@
 .main {
   width: 1200px;
-  margin: 0 auto;
+  margin: 0 auto 196px;
+}
+
+.main h2 {
+  padding: 50px 0 20px;
+}
+
+.main h3 {
+  padding: 25px 0;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.main h3 span {
+  color: var(--coolgray01);
+}
+.reg_img_wr > div > * {
+  margin: 10px 0;
+}
+.reg_img_wr > div > *:nth-child(1) {
+  margin-top: 0;
+}
+.recipe_tb_int tr {
+  margin: 5px 0;
+}
+.insert_form {
+  padding-bottom: 40px;
+  border-bottom: 1px solid var(--dark04);
+}
+
+.footer_font {
+  font-size: 13px;
+  color: var(--coolgray02);
 }

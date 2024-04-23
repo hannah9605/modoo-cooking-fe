@@ -149,10 +149,10 @@ export const options: AuthOptions = {
   // },
 
   callbacks: {
-    async signIn(user, account, profile) {
-      await getSignIn(user);
-      return true;
-    },
+    // async signIn(user, account, profile) {
+    //   await getSignIn(user);
+    //   return true;
+    // },
 
     async jwt({ token, user }) {
       console.log(user, "jwtjwtjwt");

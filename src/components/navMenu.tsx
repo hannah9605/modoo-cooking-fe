@@ -6,7 +6,7 @@ import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 
-import styles from "./navMenu.module.css";
+import styles from "./css/navMenu.module.css";
 // images
 import LogoImage from "/public/images/logo.png";
 import schIcon from "/public/images/search.png";
@@ -31,7 +31,7 @@ const NavMenu = () => {
         <ul className={styles.nav_menu}>
           <li>
             <Link href="/">
-              <Image src={LogoImage} alt="로고" />
+              <Image src={LogoImage} alt="로고" priority />
             </Link>
           </li>
           <li>
@@ -61,7 +61,7 @@ const NavMenu = () => {
                 onSearch();
               }}
             >
-              <Image src={schIcon} alt="검색" />
+              <Image src={schIcon} alt="검색" priority />
             </button>
           </li>
           {session ? (
@@ -120,7 +120,7 @@ const NavMenu = () => {
             <>
               <li>
                 <button>
-                  <Link className={styles.login_font} href="/api/auth/signin">
+                  <Link className={styles.login_font} href="/login">
                     로그인
                   </Link>
                 </button>

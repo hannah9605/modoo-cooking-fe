@@ -1,4 +1,4 @@
-main {
+.inner_main {
   width: 1200px;
   margin: 0 auto;
 }
@@ -13,11 +13,23 @@ main {
   font-size: 20px;
   font-weight: bold;
 }
-/* flex */
+
+/* 레이아웃 */
+/* 레이아웃-flex */
 .flex_between {
   display: flex;
   justify-content: space-between;
-  align-self: center;
+  align-items: center;
+}
+.flex_start {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.flex_center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .flex {
   display: flex;
@@ -27,4 +39,141 @@ main {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+}
+/* 레이아웃-여백 */
+.margin_t_20px {
+  margin-top: 20px;
+}
+.width_100 {
+  width: 100%;
+}
+
+/* 파일 업로드 커스텀 */
+.file_custom {
+  position: absolute;
+  width: 0;
+  height: 0;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+}
+
+.default_image img {
+  width: auto !important;
+  height: 103px !important;
+}
+.default_image {
+  background: var(--coolgray04);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+/* 입력창 */
+input[type="text"],
+textarea {
+  background: var(--coolgray04);
+  border: 1px solid var(--coolgray03);
+  border-radius: 4px;
+  padding: 15px 10px;
+  font-size: 14px;
+  color: var(--fontgray);
+  font-weight: 500;
+  width: 100%;
+}
+input[type="text"]::placeholder,
+textarea::placeholder {
+  color: var(--coolgray02);
+}
+textarea {
+  resize: none;
+}
+label {
+  width: 100%;
+}
+/* 버튼 */
+.btn {
+  font-size: 16px;
+  font-weight: 500;
+  padding: 15px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+}
+.btn_default {
+  border: 1px solid var(--coolgray03);
+  color: var(--coolgray03);
+}
+.btn_secondary {
+  border: 1px solid var(--dark05);
+  color: var(--dark05);
+}
+.btn_primary {
+  border: 1px solid var(--maincolor);
+  color: var(--maincolor);
+  border-radius: 3px;
+}
+.btn_active {
+  border: 1px solid var(--maincolor);
+  background: var(--maincolor);
+  color: #fff;
+}
+.btn_m {
+  width: 100px;
+}
+
+.btn_s {
+  width: 50px;
+  height: 50px;
+  padding: 0;
+}
+button[disabled] {
+  background: var(--coolgray04);
+  cursor: not-allowed;
+  border: 1px solid var(--coolgray02);
+  color: var(--coolgray02);
+}
+
+/* 드래그 리스트 */
+.drag_list li > div {
+  width: 100%;
+}
+/* .drag_list li > div .cook {
+  width: 86.75%;
+} */
+.drag_list li > div .name {
+  width: 51.75%;
+}
+.drag_list li > div .measure {
+  width: 35%;
+}
+.drag_subtitle {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--coolgray01);
+  padding: 30px 0 10px;
+}
+
+.under_l {
+  border-bottom: 1px solid var(--dark04);
+}
+
+/* 특수id */
+#Profile tr th {
+  padding-left: 50px;
+  width: 170px;
+}
+#Profile tr ~ tr td {
+  width: 550px;
+}
+
+#Profile,
+#ingredientList,
+#foodImgList {
+  border-width: 10px;
+  border-color: var(--coolgray04);
 }

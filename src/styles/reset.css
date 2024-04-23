@@ -12,11 +12,12 @@ html,
 body {
   max-width: 100%;
   min-height: 100%;
-  overflow: auto;
+  overflow: hidden;
 }
 html {
   overflow-x: hidden;
   -webkit-text-size-adjust: none;
+  overflow-y: auto;
 }
 body {
   background: #fff;
@@ -107,9 +108,6 @@ input {
 /* IE10 이상에서 input box 에 추가된 지우기 버튼 제거 */
 input::-ms-clear {
   display: none;
-}
-input[type="text"]::placeholder {
-  color: var(--coolgray02);
 }
 
 /* input type number 에서 화살표 제거 */

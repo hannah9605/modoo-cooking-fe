@@ -19,19 +19,25 @@ export interface CookingPost {
   foodImgList: FoodImage[];
 }
 
-type RecipeColumn = {
-  title?: string;
+export type RecipeColumn = {
   id: string;
-  value: null | any;
+  value: string | null;
   type: string;
+  title?: string;
   imgFile?: null | any;
+  placeholderText?: string;
+  option?: [];
 };
 
 export interface ColumnsRecipe {
-  // [key: string]: RecipeColumn[] | RecipeColumn[][];
-  Profile: RecipeColumn[];
-  cookingUtensils: RecipeColumn[][];
-  seasonings: RecipeColumn[][];
-  ingredientList: RecipeColumn[][];
-  foodImgList: RecipeColumn[];
+  [key: string]: RecipeColumn[] | RecipeColumn[][];
+  // Profile: RecipeColumn[];
+  // cookingUtensils: RecipeColumn[][];
+  // seasonings: RecipeColumn[][];
+  // ingredientList: RecipeColumn[][];
+  // foodImgList: RecipeColumn[];
 }
+//
+
+// export interface UpdatedInsertColumns
+//   extends Record<string, RecipeColumn[][] | RecipeColumn[]> {}
